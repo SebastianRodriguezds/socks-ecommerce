@@ -9,6 +9,8 @@ export function CartProvider({ children }) {
         return savedCart ? JSON.parse(savedCart) : [];
     });
 
+    const [animateCart, setAnimateCart] = useState(false);
+
     useEffect(() => {
         localStorage.setItem("cart", JSON.stringify(cart));
     }, [cart]);
@@ -26,6 +28,9 @@ export function CartProvider({ children }) {
                 return [...prevCart, { ...product, quantity: 1 }];
             }
         });
+
+        setAnimateCart(true);
+        setTimeout(()=> setAnimateCart(false), 600);
     };
 
     //remove ftom cart
@@ -50,7 +55,7 @@ export function CartProvider({ children }) {
     };
 
     return (
-        <CartContext.Provider value={{ cart, addToCart, removeFromCart, getTotal, updateQuantity }}>
+        <CartContext.Provider value={{ cart, addToCart, removeFromCart, getTotal, updateQuantity, animateCart }}>
             {children}
         </CartContext.Provider>
     );

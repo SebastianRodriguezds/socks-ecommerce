@@ -1,12 +1,13 @@
 import { useContext } from "react";
 import { CartContext } from "../context/CartContext";
 
+
 function Cart() {
     const { cart, removeFromCart, getTotal, updateQuantity } = useContext(CartContext);
 
     return (
-        <div className="max-w-6x1 mx-auto py-12 px-4">
-            <h2 className="text-3x1 font-bold mb-8 text-center">Your Cart</h2>
+        <div className="max-w-6xl mx-auto py-12 px-4">
+            <h2 className="text-3xl font-bold mb-8 text-center">Your Cart</h2>
 
             {cart.length == 0 ? (
                 <p className="text-center text-gray-600">Your car is empty</p>

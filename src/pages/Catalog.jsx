@@ -1,7 +1,20 @@
-import products from "../data/products.json";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 function Catalog() {
+
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(()=> {
+        axios.get("http://localhost:5000/products")
+            .then(res => setProducts(res.data))
+            .catch(err => setError(err.message))
+            .finally(() => setLoading(false));
+    }, []);
+
   return (
     <div className="max-w-6xl mx-auto py-12 px-4">
       <h2 className="text-3xl font-bold mb-8 text-center">All Products</h2>

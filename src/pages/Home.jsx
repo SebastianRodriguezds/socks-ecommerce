@@ -1,8 +1,24 @@
-import products from "../data/products.json";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 function Home(){
+    const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(()=> {
+        axios.get("http://localhost:5000/products")
+            .then(res => setProducts(res.data))
+            .catch(err => setError(err.message))
+            .finally(() => setLoading(false));
+    }, []);
+
     const featuredProducts = products.slice(0, 3)
+
+    if (loading) return <p className="text-center mt-12">Cargando productos...</p>;
+    if (error) return <p className="text-center mt-12 text-red-500">Error: {error}</p>;
+    
     return(
         <div>
             {/*Banner*/}
