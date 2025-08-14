@@ -4,7 +4,7 @@
     "name": "Classic Sock",
     "description": "Comfortable and durable sock",
     "price": 5,
-    "image": "/media1.jpg",
+    "image": "http://localhost:5000/uploads/media1.jpg",
     "category": "classic"
   },
   {
@@ -12,7 +12,7 @@
     "name": "Sport Sock",
     "description": "Ideal for running",
     "price": 8,
-    "image": "/media2.jpg",
+    "image": "http://localhost:5000/uploads/media2.jpg",
     "category": "sport"
   },
   {
@@ -20,7 +20,7 @@
     "name": "Winter Sock",
     "description": "Warm and cozy for cold days",
     "price": 10,
-    "image": "/media3.jpg",
+    "image": "http://localhost:5000/uploads/media3.jpg",
     "category": "winter"
   }
 ]
