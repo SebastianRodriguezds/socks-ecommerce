@@ -1,11 +1,16 @@
 import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { CartContext } from "../context/CartContext";
-import { ShoppingCartIcon } from "@heroicons/react/24/solid";
+import { ShoppingCartIcon, UserIcon  } from "@heroicons/react/24/solid";
+import { AuthContext } from "../context/AuthContext";
 
 function Navbar() {
   const { cart, animateCart } = useContext(CartContext);
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+  const { user, logout } = useContext(AuthContext);
+  const [showLogin, setShowLogin] = useState(false);
+
+  const handleUserClick = () => setShowLogin(!showLogin);
 
   return (
     <nav className="bg-gray-800 text-white px-6 py-4 flex justify-between items-center shadow-md">
@@ -39,6 +44,43 @@ function Navbar() {
               </span>
             )}
           </Link>
+        </li>
+
+        <li className="relative">
+          <button onClick={handleUserClick}>
+            <UserIcon className="w-8 h-8 cursor-pointer text-white hover:text-yellow-400 transition-colors duration-300" />
+          </button>
+          {showLogin && !user && (
+            <div className="absolute right-0 mt-2 w-64 bg-white text-black rounded shadow-lg p-4 z-50">
+              <form action="" className="flex flex-col space-y-2">
+                <input type="email" placeholder="Email" className="border p-2 rounded" />
+                <input type="password" placeholder="Password" className="border p-2 rounded" />
+                <button className="bg-gray-800 text-white p-2 rounded hover:bg-yellow-400">
+                  Sign In
+                </button>
+                <div className="flex justify-between text-sm mt-2">
+                  <Link to="/forgot-password" className="hover:text-yellow-400">
+                    Forgot Password?
+                  </Link>
+
+                  <Link to="/register" className="hover:text-yellow-400">
+                    Create account
+                  </Link>
+                </div>
+              </form>
+            </div>
+          )}
+          {showLogin && user && (
+            <div className="absolute right-0 mt-2 w-48 bg-white text-black rounded shadow-lg p-4 z-50">
+              <p className="mb-2">Hola, {user.name}</p>
+              <Link to="/profile" className="block mb-2 hover:text-yellow-500">
+                Profile
+              </Link>
+              <button onClick={logout} className="gb-gray-800 text-white p-2 w-full rounded hover:bg-red-500">
+                Logout
+              </button>
+            </div>
+          )}
         </li>
       </ul>
     </nav>
