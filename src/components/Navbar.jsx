@@ -7,8 +7,11 @@ import { AuthContext } from "../context/AuthContext";
 function Navbar() {
   const { cart, animateCart } = useContext(CartContext);
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-  const { user, logout } = useContext(AuthContext);
   const [showLogin, setShowLogin] = useState(false);
+  const { user,login, logout } = useContext(AuthContext);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const handleUserClick = () => setShowLogin(!showLogin);
 
@@ -52,12 +55,25 @@ function Navbar() {
           </button>
           {showLogin && !user && (
             <div className="absolute right-0 mt-2 w-64 bg-white text-black rounded shadow-lg p-4 z-50">
-              <form action="" className="flex flex-col space-y-2">
-                <input type="email" placeholder="Email" className="border p-2 rounded" />
-                <input type="password" placeholder="Password" className="border p-2 rounded" />
-                <button className="bg-gray-800 text-white p-2 rounded hover:bg-yellow-400">
+              <form onSubmit={async (e)=> {
+                e.preventDefault();
+                try{
+                  await login({email, password});
+                  setShowLogin(false);
+                }catch (err) {
+                  setError(err.message || "Login failed");
+                }
+              }}
+              className="flex flex-col space-y-2">
+                <input type="email" placeholder="Email" className="border p-2 rounded" value={email} onChange={(e)=> setEmail(e.target.value)} required/>
+                <input type="password" placeholder="Password" className="border p-2 rounded"  value={password} 
+        onChange={(e) => setPassword(e.target.value)} 
+        required/>
+                <button type="submit" className="bg-gray-800 text-white p-2 rounded hover:bg-yellow-400">
                   Sign In
                 </button>
+                {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
+
                 <div className="flex justify-between text-sm mt-2">
                   <Link to="/forgot-password" className="hover:text-yellow-400">
                     Forgot Password?
@@ -76,7 +92,7 @@ function Navbar() {
               <Link to="/profile" className="block mb-2 hover:text-yellow-500">
                 Profile
               </Link>
-              <button onClick={logout} className="gb-gray-800 text-white p-2 w-full rounded hover:bg-red-500">
+              <button onClick={logout} className="bg-gray-800 text-white p-2 w-full rounded hover:bg-red-500">
                 Logout
               </button>
             </div>

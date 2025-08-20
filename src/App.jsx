@@ -4,7 +4,10 @@ import Navbar from "./components/Navbar";
 import Catalog from "./pages/Catalog";
 import ProductDetail from "./pages/ProductDetail";
 import Cart from "./pages/Cart";
+import Register from "./pages/Register";
+import ForgotPass from "./pages/ForgotPass";
 import Footer from "./components/Footer";
+
 
 function App() {
   return(
@@ -15,6 +18,8 @@ function App() {
         <Route path="/catalog" element={<Catalog/>}/> 
         <Route path="/product/:id" element={<ProductDetail />}/> 
         <Route path="/cart" element={<Cart/>}/> 
+        <Route path="/register" element={<Register/>}/> 
+        <Route path="/forgot-password" element={<ForgotPass />} />
       </Routes>
       <Footer />
     </Router>

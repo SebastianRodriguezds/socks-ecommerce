@@ -11,7 +11,7 @@ function Catalog() {
   const [error, setError] = useState(null);
 
   useEffect(()=> {
-        axios.get("http://localhost:5000/products")
+        axios.get("http://localhost:5000/api/products")
             .then(res => setProducts(res.data))
             .catch(err => setError(err.message))
             .finally(() => setLoading(false));

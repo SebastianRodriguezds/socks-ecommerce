@@ -11,7 +11,7 @@ function ProductDetail() {
     const [error, setError] = useState(null)
 
     useEffect(()=>{
-        axios.get(`http://localhost:5000/products/${id}`)
+        axios.get(`http://localhost:5000/api/products/${id}`)
             .then(res=>setProduct(res.data))
             .catch(err=>setError(err.message))
             .finally(()=>setLoading(false))

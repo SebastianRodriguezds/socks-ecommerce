@@ -8,7 +8,7 @@ function Home(){
     const [error, setError] = useState(null);
 
     useEffect(()=> {
-        axios.get("http://localhost:5000/products")
+        axios.get("http://localhost:5000/api/products")
             .then(res => setProducts(res.data))
             .catch(err => setError(err.message))
             .finally(() => setLoading(false));
@@ -38,7 +38,7 @@ function Home(){
                             <h3 className="text-lg font-semibold mt-4">{product.name}</h3>
                             <p className="text-gray-600">{product.description}</p>
                             <p className="font-bold mt-2">${product.price}</p>
-                            <Link to={`/product/${product.id}`} className="inline-block mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                            <Link to={`/product/${product._id}`} className="inline-block mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
                                 View Details
                             </Link>
                         </div>

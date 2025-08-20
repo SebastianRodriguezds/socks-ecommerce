@@ -23,7 +23,7 @@ function Register() {
     };
 
     return (
-        <div className="max-w-md max-auto mt-12 p-6 border rounded shadow">
+        <div className="max-w-md mx-auto mt-12 p-6 border rounded shadow">
             <h2 className="text-2xl font-bold mb-4 text-center">Register</h2>
             {error && <p className="text-red-500 mb-4">{error}</p>}
             <form onSubmit={handleSubmit} action="" className="space-y-4">

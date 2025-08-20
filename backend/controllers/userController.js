@@ -1,7 +1,9 @@
-const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { use } = require("react");
+const crypto  = require("crypto");
+const User = require("../models/User");
+const sendEmail = require("../utils/sendEmail")
 
 //reg
 exports.registerUser = async (req, res)=> {
@@ -60,4 +62,38 @@ exports.getProfile = async (req, res)=> {
         }
 };
 
+
+//reset pass
+exports.ForgotPassword = async (req, res)=> {
+    const {email} = req.body;
+
+    const user = await User.findOne({email});
+    if (!user) {
+        return res.status(404).json({message : "User not found"});
+    }
+
+    //tok
+    const token = crypto.randomBytes(20).toString("hex");
+
+    user.resetPasswordToken = token;
+    user.resetPasswordExpires = Date.now() + 3600000;
+    await user.save();
+
+    const resetUrl = `${req.protocol}://${req.get("host")}/reset-password/${token}`;
+
+    //send email to user
+    try{
+        await sendEmail({
+            to: user.email, 
+            subject: "Password Reset Request",
+            text: `Click this link to reset your password: ${resetUrl}`,
+        });
+        res.status(200).json({message: "Email sent"});
+    }catch (error) {
+        user.resetPasswordToken = undefined;
+        user.resetPasswordExpires = undefined;
+        await user.save();
+        res.status(500).json({message: "Email could not be sent"});
+    }
+};
 
