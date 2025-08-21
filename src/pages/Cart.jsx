@@ -1,9 +1,11 @@
 import { useContext } from "react";
 import { CartContext } from "../context/CartContext";
+import { useNavigate } from "react-router-dom";
 
 
 function Cart() {
     const { cart, removeFromCart, getTotal, updateQuantity } = useContext(CartContext);
+    const navigate = useNavigate();
 
     return (
         <div className="max-w-6xl mx-auto py-12 px-4">
@@ -26,9 +28,9 @@ function Cart() {
                                             -
                                         </button>
                                         <span>{item.quantity}</span>
-                                        <button onClick={()=>updateQuantity(item._id, 1)}
+                                        <button onClick={() => updateQuantity(item._id, 1)}
                                             className="bg-gray-300 px-2 rounded hover:bg-gray-400">
-                                            +        
+                                            +
                                         </button>
                                     </div>
                                 </div>
@@ -41,6 +43,18 @@ function Cart() {
                     <div className="text-right font-bold text-xl">
                         Total: ${getTotal().toFixed(2)}
                     </div>
+
+                    {cart.length > 0 && (
+                        <div className="text-right mt-6">
+                            <button
+                                onClick={() => navigate("/checkout")}
+                                className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700"
+                            >
+                                Proceed to Checkout
+                            </button>
+                        </div>
+                    )}
+
                 </div>
             )}
         </div>

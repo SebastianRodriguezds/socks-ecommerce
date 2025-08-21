@@ -7,20 +7,24 @@ import Cart from "./pages/Cart";
 import Register from "./pages/Register";
 import ForgotPass from "./pages/ForgotPass";
 import Login from "./pages/Login";
+import Checkout from "./pages/Checkout";
+import OrderConfirmation from "./pages/OrderConfirmation";
 import Footer from "./components/Footer";
 
 
 function App() {
-  return(
+  return (
     <Router>
-      <Navbar/>
+      <Navbar />
       <Routes>
-        <Route path="/" element={<Home/>}/> 
-        <Route path="/catalog" element={<Catalog/>}/> 
-        <Route path="/product/:id" element={<ProductDetail />}/> 
-        <Route path="/cart" element={<Cart/>}/> 
-        <Route path="/register" element={<Register/>}/> 
-        <Route path="/login" element={<Login/>}/> 
+        <Route path="/" element={<Home />} />
+        <Route path="/catalog" element={<Catalog />} />
+        <Route path="/product/:id" element={<ProductDetail />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/order/:orderId" element={<OrderConfirmation />} />
         <Route path="/forgot-password" element={<ForgotPass />} />
       </Routes>
       <Footer />
