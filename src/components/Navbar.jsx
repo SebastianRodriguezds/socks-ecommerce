@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useContext, useState, useEffect, useRef } from "react";
 import { CartContext } from "../context/CartContext";
 import { ShoppingCartIcon, UserIcon  } from "@heroicons/react/24/solid";
@@ -12,6 +12,7 @@ function Navbar() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const location = useLocation();
   const popupRef = useRef(null);
@@ -31,6 +32,11 @@ function Navbar() {
   useEffect(()=> {
     setShowLogin(false);
   }, [location]);
+
+  const handleLogout = ()=>{
+    logout();
+    navigate("/");
+  };
 
   return (
     <nav className="bg-gray-800 text-white px-6 py-4 flex justify-between items-center shadow-md">
@@ -112,7 +118,7 @@ function Navbar() {
               <Link to="/profile" className="block mb-2 hover:text-yellow-500">
                 Profile
               </Link>
-              <button onClick={logout} className="bg-gray-800 text-white p-2 w-full rounded hover:bg-red-500">
+              <button onClick={handleLogout} className="bg-gray-800 text-white p-2 w-full rounded hover:bg-red-500">
                 Logout
               </button>
             </div>

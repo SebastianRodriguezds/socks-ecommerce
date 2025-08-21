@@ -98,3 +98,51 @@ exports.ForgotPassword = async (req, res)=> {
     }
 };
 
+
+exports.updateCart = async (req, res) => {
+  try {
+    const { cart } = req.body;
+    const user = await User.findById(req.user.id);
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    user.cart = cart
+  .filter(item => item._id) 
+  .map(item => ({
+    product: item._id,
+    quantity: item.quantity
+  }));
+
+
+    await user.save();
+
+    res.json({ message: "Cart updated", cart: user.cart });
+  } catch (err) {
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
+};
+
+
+exports.getCart = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).populate("cart.product");
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    const formattedCart = user.cart
+      .filter(item => item.product) 
+      .map(item => ({
+        _id: item.product._id,
+        name: item.product.name,
+        price: item.product.price,
+        image: item.product.image,
+        quantity: item.quantity
+      }));
+
+    res.json({ cart: formattedCart });
+  } catch (err) {
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
+};
+
+
+
+

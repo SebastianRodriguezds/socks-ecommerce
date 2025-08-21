@@ -1,19 +1,46 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useContext } from "react";
+import { AuthContext } from "./AuthContext";
+import axios from "axios";
 
 export const CartContext = createContext();
 
 export function CartProvider({ children }) {
-    const [cart, setCart] = useState(() => {
-        // retrive cart from localStorage if it exist
-        const savedCart = localStorage.getItem("cart");
-        return savedCart ? JSON.parse(savedCart) : [];
-    });
-
+    const {token, user} = useContext(AuthContext);
+    const [cart, setCart] = useState([]);
     const [animateCart, setAnimateCart] = useState(false);
 
-    useEffect(() => {
-        localStorage.setItem("cart", JSON.stringify(cart));
-    }, [cart]);
+    useEffect(()=>{
+        const loadCart = async ()=> {
+            if (token) {
+                try{
+                    const res = await axios.get("http://localhost:5000/api/users/cart",{
+                        headers: {Authorization: `Bearer ${token}`},
+                    });
+                    setCart(res.data.cart || []);
+                }catch (err) {
+                    console.error("Error loading cart: ", err);
+                    setCart([]);
+                }
+            }else{
+                const savedCart = localStorage.getItem("cart");
+                setCart(savedCart ? JSON.parse(savedCart): []);
+            }
+        };
+        loadCart();
+    }, [token]);
+
+    //save cart in backedn or localstorage
+     useEffect(() => {
+    if (token) {
+      axios.put(
+        "http://localhost:5000/api/users/cart",
+        { cart },
+        { headers: { Authorization: `Bearer ${token}` } }
+      ).catch(err => console.error("Error updating cart:", err));
+    } else {
+      localStorage.setItem("cart", JSON.stringify(cart));
+    }
+  }, [cart, token]);
 
     //add products to the cart
     const addToCart = (product) => {
@@ -57,8 +84,10 @@ export function CartProvider({ children }) {
         );
     };
 
+
+
     return (
-        <CartContext.Provider value={{ cart, addToCart, removeFromCart, getTotal, updateQuantity, animateCart }}>
+        <CartContext.Provider value={{ cart, addToCart, removeFromCart, getTotal, updateQuantity, animateCart, setCart }}>
             {children}
         </CartContext.Provider>
     );
