@@ -14,6 +14,11 @@ const userSchema = new mongoose.Schema({
             quantity: { type: Number, default: 1 }
         }
     ],
+    role: {
+        type: String,
+        enum : ["client", "admin"],
+        default: "client"
+    }
 });
 
 //middle to hashpass

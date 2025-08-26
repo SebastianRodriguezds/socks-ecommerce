@@ -41,7 +41,7 @@ exports.createCheckoutSession = async (req, res) => {
         orderItems: JSON.stringify(orderItems),
         shippingAddress: JSON.stringify(shippingAddress || {}),
         userId: String(userId),
-        paymentMethod: String(paymentMethod), // FORZAR string exacta
+        paymentMethod: String(paymentMethod),
       },
     });
 
@@ -105,7 +105,7 @@ exports.stripeWebhook = async (req, res) => {
         user: userId,
         orderItems,
         shippingAddress,
-        paymentMethod, // GUARDA EXACTAMENTE lo que vino
+        paymentMethod, 
         itemsPrice: totalPrice,
         totalPrice,
         isPaid: true,
