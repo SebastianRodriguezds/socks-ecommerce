@@ -30,7 +30,7 @@ function OrderConfirmation() {
         };
 
         if (user) fetchOrder();
-    }, [orderId, user]);
+    }, [orderId, user, token]);
 
     if (loading) return <p className="text-center py-12">Loading...</p>;
     if (error) return <p className="text-center text-red-500 py-12">{error}</p>

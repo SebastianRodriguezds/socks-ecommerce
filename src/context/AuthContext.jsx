@@ -2,11 +2,14 @@ import { createContext, useEffect, useState } from "react";
 
 export const AuthContext = createContext();
 
-export function AuthProvider({children}) {
-    const [user, setUser] = useState(null);
-    const [token, setToken] = useState(localStorage.getItem("token"));
+export function AuthProvider({ children }) {
+    const [token, setToken] = useState(() => localStorage.getItem("token"));
+    const [user, setUser] = useState(() => {
+        const saved = localStorage.getItem("user");
+        return saved ? JSON.parse(saved) : null;
+    });
 
-    useEffect(()=>{
+    useEffect(() => {
         const savedToken = localStorage.getItem("token");
         const savedUser = localStorage.getItem("user");
         if (savedToken && savedUser) {
@@ -15,14 +18,14 @@ export function AuthProvider({children}) {
         }
     }, []);
 
-    const register = async ({name, email, password}) =>{
+    const register = async ({ name, email, password }) => {
         const res = await fetch("http://localhost:5000/api/users/register", {
             method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({name, email, password}),
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name, email, password }),
 
         });
-        if(!res.ok) {
+        if (!res.ok) {
             const err = await res.json();
             throw new Error(err.message || "Registration failed");
         }
@@ -30,27 +33,27 @@ export function AuthProvider({children}) {
         setUser(data.user);
     };
 
-    const login = async ({email, password}) => {
+    const login = async ({ email, password }) => {
         const res = await fetch("http://localhost:5000/api/users/login", {
             method: "POST",
-            headers: {"Content-Type": "application/json"},
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, password })
 
         });
-        
-    console.log("Frontend sending:", { email, password });    
-    if (!res.ok) {
-        const err = await res.json();
-        throw new Error(err.message || "Login failed");
-    }
 
-    const data = await res.json();
-    setUser(data.user);
-    setToken(data.token);
-    localStorage.setItem("token", data.token);
-    localStorage.setItem("user", JSON.stringify(data.user));
+        console.log("Frontend sending:", { email, password });
+        if (!res.ok) {
+            const err = await res.json();
+            throw new Error(err.message || "Login failed");
+        }
 
-};
+        const data = await res.json();
+        setUser(data.user);
+        setToken(data.token);
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("user", JSON.stringify(data.user));
+
+    };
 
     const logout = () => {
         setUser(null);
@@ -60,7 +63,7 @@ export function AuthProvider({children}) {
     };
 
     return (
-        <AuthContext.Provider value={{ user, token, register, login, logout}}>
+        <AuthContext.Provider value={{ user, token, register, login, logout }}>
             {children}
         </AuthContext.Provider>
     );

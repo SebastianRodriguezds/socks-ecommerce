@@ -10,6 +10,7 @@ import Login from "./pages/Login";
 import Checkout from "./pages/Checkout";
 import OrderConfirmation from "./pages/OrderConfirmation";
 import Profile from "./pages/Profile";
+import Success from "./pages/Success";
 import Footer from "./components/Footer";
 
 
@@ -27,6 +28,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/order/:orderId" element={<OrderConfirmation />} />
+        <Route path="/success" element={<Success />} />
         <Route path="/forgot-password" element={<ForgotPass />} />
       </Routes>
       <Footer />
