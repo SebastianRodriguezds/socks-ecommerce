@@ -56,6 +56,13 @@ function Navbar() {
             Catalog
           </Link>
         </li>
+        {user && user.role === "admin" &&(
+          <li>
+            <Link to="/admin" className="hover:text-yellow-400 transition-colors duration-300">
+              Admin Panel
+            </Link>
+          </li>
+        )}
         <li className="relative">
           <Link to="/cart">
             <ShoppingCartIcon

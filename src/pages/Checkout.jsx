@@ -40,6 +40,7 @@ function Checkout() {
         itemsPrice: getTotal(),
         taxPrice: 0,
         shippingPrice: 0,
+        totalPrice: getTotal(),
       };
 
      
@@ -89,6 +90,7 @@ function Checkout() {
         <div className="border p-4 rounded space-y-4">
           <h3 className="font-semibold text-xl mb-2">Payment Method</h3>
           <select value={paymentMethod} onChange={e => setPaymentMethod(e.target.value)} className="w-full border px-3 py-2 rounded">
+            <option value="" disabled>Select a payment method</option>
             <option value="PayPal">PayPal</option>
             <option value="Card">Card</option>
           </select>

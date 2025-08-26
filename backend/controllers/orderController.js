@@ -10,6 +10,7 @@ const addOrder = async (req, res) => {
         shippingPrice,
         totalPrice,
     } = req.body;
+    console.log("Order body recibido:", req.body);
 
     if(!orderItems || orderItems.length === 0)
         return res.status(400).json ({message: "No order items"});
@@ -25,7 +26,7 @@ const addOrder = async (req, res) => {
             shippingPrice,
             totalPrice,
         });
-
+        console.log("Order a guardar:", order);    
         const createdOrder = await order.save();
         res.status(201).json(createdOrder);
     }catch (err) {
@@ -60,10 +61,20 @@ const getOrderById = async (req, res)=> {
     }
 };
 
+const getAllOrdersController = async(req, res) => {
+    try{
+        const orders = await Order.find().populate("user", "name email");
+        res.json(orders);
+    }catch (err){
+        res.status(500).json({message: "Server error", error: err.message});
+    }
+}
+
 
  
 module.exports = {
     addOrder,
     getMyOrders,
     getOrderById,
+    getAllOrdersController,
 };

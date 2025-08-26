@@ -18,7 +18,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         enum : ["client", "admin"],
         default: "client"
-    }
+    },
 });
 
 //middle to hashpass

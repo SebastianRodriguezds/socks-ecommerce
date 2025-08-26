@@ -16,7 +16,7 @@ exports.registerUser = async (req, res)=> {
         
         const user = await User.create({ name, email, password});
         res.status(201).json({message: "User registered successfully", 
-        user: {id: user._id, name: user.name, email : user.email}    
+        user: {id: user._id, name: user.name, email : user.email, role: user.role}    
         });
     } catch (err) {
         console.error(err);
@@ -45,7 +45,7 @@ exports.loginUser = async (req, res)=> {
 
         res.json({
             token, 
-            user: {id: user._id, name: user.name, email: user.email },
+            user: {id: user._id, name: user.name, email: user.email, role: user.role,},
         });
     }catch (err) {
         console.log(err);
@@ -103,6 +103,9 @@ exports.updateCart = async (req, res) => {
   try {
     const { cart } = req.body;
     const user = await User.findById(req.user.id);
+    console.log("req.user:", req.user);
+    console.log("req.body:", req.body);
+
     if (!user) return res.status(404).json({ message: "User not found" });
 
     user.cart = cart
@@ -125,6 +128,9 @@ exports.updateCart = async (req, res) => {
 exports.getCart = async (req, res) => {
   try {
     const user = await User.findById(req.user.id).populate("cart.product");
+    console.log("req.user:", req.user);
+    console.log("req.body:", req.body);
+
     if (!user) return res.status(404).json({ message: "User not found" });
 
     const formattedCart = user.cart
@@ -143,6 +149,12 @@ exports.getCart = async (req, res) => {
   }
 };
 
-
-
+exports.getUsersController = async (req, res) => {
+  try {
+    const users = await User.find().select("-password");
+    res.json(users);
+  }catch (err) {
+    res.status(500).json({message: "Server errror", error: err.message});
+  }
+};
 
