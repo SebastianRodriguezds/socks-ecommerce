@@ -6,7 +6,7 @@ const AdminRoute = ({ children }) => {
   const { user, loading } = useContext(AuthContext);
 
   if (loading) {
-    return <p className="text-center mt-10">Validando sesión...</p>;
+    return <p className="text-center mt-10">Validating session...</p>;
   }
 
   if (!user) {
@@ -14,7 +14,7 @@ const AdminRoute = ({ children }) => {
   }
 
   if (user.role !== "admin") {
-    return <p className="text-center mt-10 text-red-600">Acceso denegado</p>;
+    return <p className="text-center mt-10 text-red-600">Access denied</p>;
   }
 
   return children;

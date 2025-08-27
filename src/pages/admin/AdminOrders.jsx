@@ -26,7 +26,7 @@ const AdminOrders = () => {
     fetchOrders();
   }, []);
 
-  if (loading) return <p>Cargando pedidos...</p>;
+  if (loading) return <p>Loading orders...</p>;
   if (error) return <p className="text-red-500">{error}</p>;
 
   return (
@@ -35,19 +35,19 @@ const AdminOrders = () => {
         <thead>
           <tr className="bg-gray-200 text-left">
             <th className="p-2 border">ID</th>
-            <th className="p-2 border">Usuario</th>
+            <th className="p-2 border">User</th>
             <th className="p-2 border">Total</th>
-            <th className="p-2 border">Pagado</th>
-            <th className="p-2 border">Fecha</th>
+            <th className="p-2 border">Paid</th>
+            <th className="p-2 border">Date</th>
           </tr>
         </thead>
         <tbody>
           {orders.map((order) => (
             <tr key={order._id} className="border-b">
               <td className="p-2 border">{order._id}</td>
-              <td className="p-2 border">{order.user?.name || "Desconocido"}</td>
+              <td className="p-2 border">{order.user?.name || "Unknown"}</td>
               <td className="p-2 border">${order.totalPrice.toFixed(2)}</td>
-              <td className="p-2 border">{order.isPaid ? "Sí" : "No"}</td>
+              <td className="p-2 border">{order.isPaid ? "Yes" : "No"}</td>
               <td className="p-2 border">
                 {new Date(order.createdAt).toLocaleDateString()}
               </td>

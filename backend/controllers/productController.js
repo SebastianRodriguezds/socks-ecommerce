@@ -21,7 +21,12 @@ const getProductController = asyncHandler(async (req, res) => {
 });
 
 const addProductController = asyncHandler(async (req, res) => {
-  const newProduct = await addProduct(req.body);
+  const productData = {...req.body};
+  if (req.file) {
+    productData.image = `http://localhost:5000/uploads/${req.file.filename}`;
+  }
+
+  const newProduct = await addProduct(productData);
   res.status(201).json(newProduct);
 });
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const API_URL = "http://localhost:5000/api/products"; // ajustá si usás otra ruta
+const API_URL = "http://localhost:5000/api/products";
 
 const AdminProducts = () => {
   const [products, setProducts] = useState([]);
@@ -14,7 +14,7 @@ const AdminProducts = () => {
       const data = await res.json();
       setProducts(data);
     } catch (error) {
-      console.error("Error cargando productos", error);
+      console.error("Error loading products", error);
     }
   };
 
@@ -26,18 +26,27 @@ const AdminProducts = () => {
   const handleCreate = async (e) => {
     e.preventDefault();
     setLoading(true);
+
+    const formData = new FormData();
+    formData.append("name", newProduct.name);
+    formData.append("price", newProduct.price);
+    if (newProduct.imageFile) formData.append("image", newProduct.imageFile);
+
     try {
       const res = await fetch(API_URL, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newProduct),
+        body: formData,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
       });
+
       if (res.ok) {
         setNewProduct({ name: "", price: "", image: "" });
         fetchProducts();
       }
     } catch (error) {
-      console.error("Error creando producto", error);
+      console.error("Error creating product", error);
     } finally {
       setLoading(false);
     }
@@ -45,24 +54,21 @@ const AdminProducts = () => {
 
 
   const handleDelete = async (id) => {
-    if (!window.confirm("¿Seguro que querés eliminar este producto?")) return;
+    if (!window.confirm("Are you sure you want to delete this product?")) return;
     try {
       await fetch(`${API_URL}/${id}`, { method: "DELETE" });
       fetchProducts();
     } catch (error) {
-      console.error("Error eliminando producto", error);
+      console.error("Error deleting product", error);
     }
   };
 
   return (
     <div>
-      <h2 className="text-xl font-bold mb-4">Gestión de Productos</h2>
-
-
       <form onSubmit={handleCreate} className="mb-6 space-y-2">
         <input
           type="text"
-          placeholder="Nombre"
+          placeholder="Name"
           value={newProduct.name}
           onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })}
           className="border p-2 rounded w-full"
@@ -70,17 +76,17 @@ const AdminProducts = () => {
         />
         <input
           type="number"
-          placeholder="Precio"
+          placeholder="Price"
           value={newProduct.price}
           onChange={(e) => setNewProduct({ ...newProduct, price: e.target.value })}
           className="border p-2 rounded w-full"
           required
         />
         <input
-          type="text"
-          placeholder="URL Imagen"
+          type="file"
+          placeholder="URL Image"
           value={newProduct.image}
-          onChange={(e) => setNewProduct({ ...newProduct, image: e.target.value })}
+          onChange={(e) => setNewProduct({ ...newProduct, imageFile: e.target.files[0] })}
           className="border p-2 rounded w-full"
         />
         <button
@@ -88,7 +94,7 @@ const AdminProducts = () => {
           disabled={loading}
           className="bg-green-600 text-white p-2 rounded hover:bg-green-700"
         >
-          {loading ? "Creando..." : "Crear Producto"}
+          {loading ? "Creating..." : "Create Product"}
         </button>
       </form>
 
@@ -96,9 +102,9 @@ const AdminProducts = () => {
       <table className="w-full bg-white shadow rounded">
         <thead>
           <tr className="bg-gray-200">
-            <th className="p-2">Nombre</th>
-            <th className="p-2">Precio</th>
-            <th className="p-2">Acciones</th>
+            <th className="p-2">Name</th>
+            <th className="p-2">Price</th>
+            <th className="p-2">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -111,7 +117,7 @@ const AdminProducts = () => {
                   onClick={() => handleDelete(prod._id)}
                   className="bg-red-600 text-white px-2 py-1 rounded hover:bg-red-700"
                 >
-                  Eliminar
+                  Delete
                 </button>
 
               </td>
