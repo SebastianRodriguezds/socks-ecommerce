@@ -55,11 +55,20 @@ const AdminProducts = () => {
 
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this product?")) return;
-    try {
-      await fetch(`${API_URL}/${id}`, { method: "DELETE" });
+    
+    try{
+      const res = await fetch(`${API_URL}/${id}`,{
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      if(!res.ok) {
+        throw new Error("Failed to delete product");
+      }
       fetchProducts();
-    } catch (error) {
-      console.error("Error deleting product", error);
+    }catch(err){
+      console.log("Error deleting prod", err);
     }
   };
 
