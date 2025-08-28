@@ -3,36 +3,24 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 function Catalog() {
-
   const [products, setProducts] = useState([]);
-  // eslint-disable-next-line
   const [loading, setLoading] = useState(true);
-  // eslint-disable-next-line
   const [error, setError] = useState(null);
 
-  useEffect(()=> {
-        axios.get("http://localhost:5000/api/products")
-            .then(res => setProducts(res.data))
-            .catch(err => setError(err.message))
-            .finally(() => setLoading(false));
-    }, []);
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/api/products")
+      .then((res) => setProducts(res.data))
+      .catch((err) => setError(err.message))
+      .finally(() => setLoading(false));
+  }, []);
 
-  if (loading) {
-    return <p className="text-center mt-12">Cargando productos...</p>;
-  }
-
-  if (error) {
-    return (
-      <p className="text-center mt-12 text-red-500">
-        Error: {error}
-      </p>
-    );
-  }
+  if (loading) return <p className="text-center mt-12">Loading products...</p>;
+  if (error) return <p className="text-center mt-12 text-red-500">Error: {error}</p>;
 
   return (
     <div className="max-w-6xl mx-auto py-12 px-4">
       <h2 className="text-3xl font-bold mb-8 text-center">All Products</h2>
-      
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
         {products.map((product) => (
           <div

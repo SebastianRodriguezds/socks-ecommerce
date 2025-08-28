@@ -1,42 +1,62 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
+import { lazy, useEffect, useState } from "react";
 import Navbar from "./components/Navbar";
-import Catalog from "./pages/Catalog";
-import ProductDetail from "./pages/ProductDetail";
-import Cart from "./pages/Cart";
-import Register from "./pages/Register";
-import ForgotPass from "./pages/ForgotPass";
-import Login from "./pages/Login";
-import AdminDashboard from "./pages/admin/AdminDashboard";
-import AdminRoute from "./components/AdminRoute";
-import Checkout from "./pages/Checkout";
-import OrderConfirmation from "./pages/OrderConfirmation";
-import Profile from "./pages/Profile";
-import Success from "./pages/Success";
 import Footer from "./components/Footer";
+import AdminRoute from "./components/AdminRoute";
 
+const Home = lazy(() => import("./pages/Home"));
+const HomeSkeleton = lazy(() => import("./skeleton/HomeSkeleton"));
+const Catalog = lazy(() => import("./pages/Catalog"));
+const ProductDetail = lazy(() => import("./pages/ProductDetail"));
+const Cart = lazy(() => import("./pages/Cart"));
+const Register = lazy(() => import("./pages/Register"));
+const ForgotPass = lazy(() => import("./pages/ForgotPass"));
+const Login = lazy(() => import("./pages/Login"));
+const AdminDashboard = lazy(() => import("./pages/admin/AdminDashboard"));
+const Checkout = lazy(() => import("./pages/Checkout"));
+const OrderConfirmation = lazy(() => import("./pages/OrderConfirmation"));
+const Profile = lazy(() => import("./pages/Profile"));
+const Success = lazy(() => import("./pages/Success"));
 
 function App() {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(()=>{
+    setTimeout(()=> {
+      setLoading(false);
+    }, 1000);
+  }, []);
+
+
   return (
     <Router>
       <Navbar />
+
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={loading ? <HomeSkeleton /> : <Home />} />
         <Route path="/catalog" element={<Catalog />} />
         <Route path="/product/:id" element={<ProductDetail />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/admin" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
+        <Route
+          path="/admin"
+          element={
+            <AdminRoute>
+              <AdminDashboard />
+            </AdminRoute>
+          }
+        />
         <Route path="/profile" element={<Profile />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/order/:orderId" element={<OrderConfirmation />} />
         <Route path="/success" element={<Success />} />
         <Route path="/forgot-password" element={<ForgotPass />} />
       </Routes>
+
       <Footer />
     </Router>
-  )
+  );
 }
 
 export default App;
