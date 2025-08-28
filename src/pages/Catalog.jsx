@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 function Catalog() {
   const [products, setProducts] = useState([]);
@@ -27,9 +29,10 @@ function Catalog() {
             key={product._id}
             className="border rounded-lg p-4 shadow hover:shadow-lg transition"
           >
-            <img
+            <LazyLoadImage
               src={product.image}
               alt={product.name}
+              effect="blur"
               className="w-full h-48 object-cover rounded"
             />
             <h3 className="text-lg font-semibold mt-4">{product.name}</h3>

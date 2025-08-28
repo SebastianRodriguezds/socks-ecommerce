@@ -24,14 +24,13 @@ function App() {
   useEffect(()=>{
     setTimeout(()=> {
       setLoading(false);
-    }, 1000);
+    }, 500);
   }, []);
 
 
   return (
     <Router>
       <Navbar />
-
       <Routes>
         <Route path="/" element={loading ? <HomeSkeleton /> : <Home />} />
         <Route path="/catalog" element={<Catalog />} />
