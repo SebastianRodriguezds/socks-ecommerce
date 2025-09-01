@@ -3,10 +3,9 @@ import PaymentMethods from "./PaymentMethods";
 
 function Footer() {
   return (
-    <footer className="bg-gray-900 text-white py-10 mt-10">
+    <footer className="bg-gray-900 text-white py-10">
       <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8">
         
-        {/* Contact */}
         <div>
           <h2 className="font-bold text-lg mb-3">Contact</h2>
           <p>Tel: +54 261 4606098</p>
@@ -28,27 +27,24 @@ function Footer() {
           </div>
         </div>
 
-        {/* Policies */}
         <div>
           <h2 className="font-bold text-lg mb-3">Policies</h2>
           <ul className="space-y-2">
-            <li><a href="#" className="hover:text-yellow-400 transition-colors">Shipping</a></li>
-            <li><a href="#" className="hover:text-yellow-400 transition-colors">Returns & Exchanges</a></li>
-            <li><a href="#" className="hover:text-yellow-400 transition-colors">Terms & Conditions</a></li>
+            <li><button className="hover:text-yellow-400 transition-colors">Shipping</button></li>
+            <li><button className="hover:text-yellow-400 transition-colors">Returns & Exchanges</button></li>
+            <li><button className="hover:text-yellow-400 transition-colors">Terms & Conditions</button></li>
           </ul>
         </div>
 
-        {/* About Us */}
         <div>
           <h2 className="font-bold text-lg mb-3">About Us</h2>
           <ul className="space-y-2">
-            <li><a href="#" className="hover:text-yellow-400 transition-colors">Who We Are</a></li>
-            <li><a href="#" className="hover:text-yellow-400 transition-colors">Mission & Vision</a></li>
-            <li><a href="#" className="hover:text-yellow-400 transition-colors">Contact</a></li>
+            <li><button className="hover:text-yellow-400 transition-colors">Who We Are</button></li>
+            <li><button className="hover:text-yellow-400 transition-colors">Mission & Vision</button></li>
+            <li><button className="hover:text-yellow-400 transition-colors">Contact</button></li>
           </ul>
         </div>
 
-        {/* Payment Methods */}
         <div>
           <h2 className="font-bold text-lg mb-3">Payment Methods</h2>
           <PaymentMethods />

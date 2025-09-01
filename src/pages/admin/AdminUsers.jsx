@@ -10,7 +10,7 @@ const AdminUsers = () => {
     const fetchUsers = async () => {
       try {
         setLoading(true);
-        const token = localStorage.getItem("token"); // assuming you store JWT in localStorage
+        const token = localStorage.getItem("token"); 
         const config = {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -28,19 +28,19 @@ const AdminUsers = () => {
     fetchUsers();
   }, []);
 
-  if (loading) return <p>Loading users...</p>;
+  if (loading) return <p>Cargando usuarios...</p>;
   if (error) return <p className="text-red-500">{error}</p>;
 
   return (
     <div className="p-6">
-      <h2 className="text-2xl font-bold mb-4">Registered Users</h2>
+      <h2 className="text-2xl font-bold mb-4">Usuarios Registrados</h2>
       <table className="min-w-full bg-white border border-gray-200">
         <thead>
           <tr className="bg-gray-100">
             <th className="py-2 px-4 border-b">ID</th>
             <th className="py-2 px-4 border-b">Name</th>
             <th className="py-2 px-4 border-b">Email</th>
-            <th className="py-2 px-4 border-b">Role</th>
+            <th className="py-2 px-4 border-b">Rol</th>
           </tr>
         </thead>
         <tbody>

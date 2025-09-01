@@ -1,3 +1,4 @@
+import { HelmetProvider, Helmet } from "react-helmet-async";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { lazy, useEffect, useState } from "react";
 import Navbar from "./components/Navbar";
@@ -21,40 +22,44 @@ const Success = lazy(() => import("./pages/Success"));
 function App() {
   const [loading, setLoading] = useState(true);
 
-  useEffect(()=>{
-    setTimeout(()=> {
+  useEffect(() => {
+    setTimeout(() => {
       setLoading(false);
     }, 500);
   }, []);
 
-
   return (
-    <Router>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={loading ? <HomeSkeleton /> : <Home />} />
-        <Route path="/catalog" element={<Catalog />} />
-        <Route path="/product/:id" element={<ProductDetail />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        <Route
-          path="/admin"
-          element={
-            <AdminRoute>
-              <AdminDashboard />
-            </AdminRoute>
-          }
-        />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/checkout" element={<Checkout />} />
-        <Route path="/order/:orderId" element={<OrderConfirmation />} />
-        <Route path="/success" element={<Success />} />
-        <Route path="/forgot-password" element={<ForgotPass />} />
-      </Routes>
-
-      <Footer />
-    </Router>
+    <HelmetProvider>
+      <Helmet>
+        <title>Socks E-commerce</title>
+        <meta name="description" content="Welcome to Socks E-commerce. Browse our products!" />
+      </Helmet>
+      <Router>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={loading ? <HomeSkeleton /> : <Home />} />
+          <Route path="/catalog" element={<Catalog />} />
+          <Route path="/product/:id" element={<ProductDetail />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route
+            path="/admin"
+            element={
+              <AdminRoute>
+                <AdminDashboard />
+              </AdminRoute>
+            }
+          />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/order/:orderId" element={<OrderConfirmation />} />
+          <Route path="/success" element={<Success />} />
+          <Route path="/forgot-password" element={<ForgotPass />} />
+        </Routes>
+        <Footer />
+      </Router>
+    </HelmetProvider>
   );
 }
 
