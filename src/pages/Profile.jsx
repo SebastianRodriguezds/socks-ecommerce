@@ -12,7 +12,7 @@ import {
 } from "react-icons/fa";
 
 function Profile() {
-  const { token, user, logout } = useContext(AuthContext);
+  const { token, logout } = useContext(AuthContext);
   const [orders, setOrders] = useState([]);
   const navigate = useNavigate();
 

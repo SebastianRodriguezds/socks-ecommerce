@@ -5,7 +5,7 @@ import axios from "axios";
 export const CartContext = createContext();
 
 export function CartProvider({ children }) {
-    const {token, user} = useContext(AuthContext);
+    const {token} = useContext(AuthContext);
     const [cart, setCart] = useState([]);
     const [animateCart, setAnimateCart] = useState(false);
 
