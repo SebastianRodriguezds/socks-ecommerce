@@ -19,7 +19,7 @@ export function AuthProvider({ children }) {
     }, []);
 
     const register = async ({ name, email, password }) => {
-        const res = await fetch("http://localhost:5000/api/users/register", {
+        const res = await fetch("https://socks-ecommerce.onrender.com/api/users/register", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ name, email, password }),
@@ -34,7 +34,7 @@ export function AuthProvider({ children }) {
     };
 
     const login = async ({ email, password }) => {
-        const res = await fetch("http://localhost:5000/api/users/login", {
+        const res = await fetch("https://socks-ecommerce.onrender.com/api/users/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, password })

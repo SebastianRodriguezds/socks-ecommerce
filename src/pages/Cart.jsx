@@ -21,7 +21,7 @@ function Cart() {
             >
               <div className="flex items-center gap-4">
                 <img
-                  src={`http://localhost:5000${item.image}`}
+                  src={`https://socks-ecommerce.onrender.com${item.image}`}
                   alt={item.name}
                   className="w-24 h-24 sm:w-32 sm:h-32 object-cover rounded-lg transform transition-transform hover:scale-105"
                 />

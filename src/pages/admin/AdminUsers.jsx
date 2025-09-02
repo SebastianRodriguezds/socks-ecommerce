@@ -16,7 +16,7 @@ const AdminUsers = () => {
             Authorization: `Bearer ${token}`,
           },
         };
-        const { data } = await axios.get("http://localhost:5000/api/users/admin", config);
+        const { data } = await axios.get("https://socks-ecommerce.onrender.com/api/users/admin", config);
         setUsers(data);
         setLoading(false);
       } catch (err) {

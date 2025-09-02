@@ -16,7 +16,7 @@ function ProductDetail() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/products/${id}`)
+      .get(`https://socks-ecommerce.onrender.com/api/products/${id}`)
       .then((res) => setProduct(res.data))
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
@@ -49,7 +49,7 @@ function ProductDetail() {
             onMouseLeave={()=> setHovering(false)}
           >
             <img
-              src={`http://localhost:5000${product.image}`}
+              src={`https://socks-ecommerce.onrender.com${product.image}`}
               alt={product.name}
               className="w-full max-w-md md:max-w-full aspect-square object-cover transition-transform duration-300 ease-in-out group-hover:scale-125"
               style={{

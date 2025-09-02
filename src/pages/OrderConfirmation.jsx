@@ -16,7 +16,7 @@ function OrderConfirmation() {
         const fetchOrder = async () => {
 
             try {
-                const { data } = await axios.get(`http://localhost:5000/api/orders/${orderId}`, {
+                const { data } = await axios.get(`https://socks-ecommerce.onrender.com/api/orders/${orderId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },

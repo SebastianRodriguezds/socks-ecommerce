@@ -48,7 +48,7 @@ function Checkout() {
       if (paymentMethod === "Card") {
 
         const { data } = await axios.post(
-          "http://localhost:5000/api/stripe/create-session",
+          "https://socks-ecommerce.onrender.com/api/stripe/create-session",
           orderData,
           { headers: { Authorization: `Bearer ${token}` } }
         );
@@ -57,7 +57,7 @@ function Checkout() {
       } else {
 
         const { data } = await axios.post(
-          "http://localhost:5000/api/orders",
+          "https://socks-ecommerce.onrender.com/api/orders",
           orderData,
           { headers: { Authorization: `Bearer ${token}` } }
         );

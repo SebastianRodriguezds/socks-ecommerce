@@ -10,7 +10,7 @@ function Home() {
 
     useEffect(() => {
         axios
-            .get("http://localhost:5000/api/products")
+            .get("https://socks-ecommerce.onrender.com/api/products")
             .then((res) => setProducts(res.data))
             .catch((err) => setError(err.message))
             .finally(() => setLoading(false));
@@ -41,7 +41,7 @@ function Home() {
                             className="border rounded-xl p-4 shadow hover:shadow-2xl transition-transform transform hover:-translate-y-2 bg-white"
                         >
                             <img
-                                src={`http://localhost:5000${product.image}`}
+                                src={`https://socks-ecommerce.onrender.com${product.image}`}
                                 alt={product.name}
                                 className="w-full h-48 object-cover rounded-lg"
                             />

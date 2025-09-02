@@ -20,7 +20,7 @@ function Profile() {
     const fetchOrders = async () => {
       if (!token) return;
       try {
-        const res = await axios.get("http://localhost:5000/api/orders/myorders", {
+        const res = await axios.get("https://socks-ecommerce.onrender.com/api/orders/myorders", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setOrders(res.data);

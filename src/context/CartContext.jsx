@@ -13,7 +13,7 @@ export function CartProvider({ children }) {
         const loadCart = async ()=> {
             if (token) {
                 try{
-                    const res = await axios.get("http://localhost:5000/api/users/cart",{
+                    const res = await axios.get("https://socks-ecommerce.onrender.com/api/users/cart",{
                         headers: {Authorization: `Bearer ${token}`},
                     });
                     setCart(res.data.cart || []);
@@ -33,7 +33,7 @@ export function CartProvider({ children }) {
      useEffect(() => {
     if (token) {
       axios.put(
-        "http://localhost:5000/api/users/cart",
+        "https://socks-ecommerce.onrender.com/api/users/cart",
         { cart },
         { headers: { Authorization: `Bearer ${token}` } }
       ).catch(err => console.error("Error updating cart:", err));

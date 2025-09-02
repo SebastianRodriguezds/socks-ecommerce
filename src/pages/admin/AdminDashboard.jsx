@@ -62,7 +62,7 @@ const AdminDashboard = () => {
         </nav>
       </aside>
 
-      {/* main crece para llenar el espacio restante */}
+
       <main className="flex-1 flex flex-col">
         <header className="bg-white shadow p-4 border-b border-gray-200">
           <h1 className="text-2xl font-bold capitalize">
@@ -75,8 +75,6 @@ const AdminDashboard = () => {
               : "Admin Panel"}
           </h1>
         </header>
-
-        {/* section crece para tocar el footer */}
         <section className="flex-1 p-6">
           <Suspense
             fallback={

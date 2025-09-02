@@ -12,7 +12,7 @@ function Catalog() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/products")
+      .get("https://socks-ecommerce.onrender.com/api/products")
       .then((res) => setProducts(res.data))
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
@@ -40,7 +40,7 @@ function Catalog() {
             className="border rounded-xl p-4 shadow hover:shadow-2xl transition-transform transform hover:-translate-y-2 bg-white text-center"
           >
             <LazyLoadImage
-              src={`http://localhost:5000${product.image}`}
+              src={`https://socks-ecommerce.onrender.com${product.image}`}
               alt={product.name}
               effect="blur"
               className="w-full h-64 object-cover rounded-lg"
