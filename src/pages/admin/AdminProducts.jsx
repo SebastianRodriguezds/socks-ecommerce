@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const API_URL = "https://socks-ecommerce.onrender.com/api/products";
+const API_URL = `${process.env.REACT_APP_API_URL}/api/products`;
 
 const AdminProducts = () => {
   const [products, setProducts] = useState([]);

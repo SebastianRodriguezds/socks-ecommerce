@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 const AdminUsers = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -16,7 +18,7 @@ const AdminUsers = () => {
             Authorization: `Bearer ${token}`,
           },
         };
-        const { data } = await axios.get("https://socks-ecommerce.onrender.com/api/users/admin", config);
+        const { data } = await axios.get(`${API_URL}/api/users/admin`, config);
         setUsers(data);
         setLoading(false);
       } catch (err) {

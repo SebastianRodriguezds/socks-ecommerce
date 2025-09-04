@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Helmet } from "react-helmet-async";
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 function Home() {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -10,7 +12,7 @@ function Home() {
 
     useEffect(() => {
         axios
-            .get("https://socks-ecommerce.onrender.com/api/products")
+            .get(`${API_URL}/api/products`)
             .then((res) => setProducts(res.data))
             .catch((err) => setError(err.message))
             .finally(() => setLoading(false));
@@ -41,7 +43,7 @@ function Home() {
                             className="border rounded-xl p-4 shadow hover:shadow-2xl transition-transform transform hover:-translate-y-2 bg-white"
                         >
                             <img
-                                src={`https://socks-ecommerce.onrender.com${product.image}`}
+                                src={`${API_URL}${product.image}`}
                                 alt={product.name}
                                 className="w-full h-48 object-cover rounded-lg"
                             />

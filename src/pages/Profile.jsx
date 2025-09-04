@@ -11,6 +11,8 @@ import {
   FaSignOutAlt 
 } from "react-icons/fa";
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 function Profile() {
   const { token, logout } = useContext(AuthContext);
   const [orders, setOrders] = useState([]);
@@ -20,7 +22,7 @@ function Profile() {
     const fetchOrders = async () => {
       if (!token) return;
       try {
-        const res = await axios.get("https://socks-ecommerce.onrender.com/api/orders/myorders", {
+        const res = await axios.get(`${API_URL}{/api/orders/myorders`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setOrders(res.data);

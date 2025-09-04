@@ -4,6 +4,8 @@ import { CartContext } from "../context/CartContext";
 import axios from "axios";
 import { Helmet } from "react-helmet-async";
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 function ProductDetail() {
   const { id } = useParams();
   const { addToCart } = useContext(CartContext);
@@ -16,7 +18,7 @@ function ProductDetail() {
 
   useEffect(() => {
     axios
-      .get(`https://socks-ecommerce.onrender.com/api/products/${id}`)
+      .get(`${API_URL}/api/products/${id}`)
       .then((res) => setProduct(res.data))
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
@@ -49,7 +51,7 @@ function ProductDetail() {
             onMouseLeave={()=> setHovering(false)}
           >
             <img
-              src={`https://socks-ecommerce.onrender.com${product.image}`}
+              src={`${API_URL}${product.image}`}
               alt={product.name}
               className="w-full max-w-md md:max-w-full aspect-square object-cover transition-transform duration-300 ease-in-out group-hover:scale-125"
               style={{

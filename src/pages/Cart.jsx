@@ -2,6 +2,8 @@ import { useContext } from "react";
 import { CartContext } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 function Cart() {
   const { cart, removeFromCart, getTotal, updateQuantity } = useContext(CartContext);
   const navigate = useNavigate();
@@ -21,7 +23,7 @@ function Cart() {
             >
               <div className="flex items-center gap-4">
                 <img
-                  src={`https://socks-ecommerce.onrender.com${item.image}`}
+                  src={`${API_URL}${item.image}`}
                   alt={item.name}
                   className="w-24 h-24 sm:w-32 sm:h-32 object-cover rounded-lg transform transition-transform hover:scale-105"
                 />

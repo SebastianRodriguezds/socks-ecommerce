@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 const AdminOrders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -10,7 +12,7 @@ const AdminOrders = () => {
     const fetchOrders = async () => {
       try {
         setLoading(true);
-        const { data } = await axios.get("https://socks-ecommerce.onrender.com/api/orders/all", {
+        const { data } = await axios.get(`${API_URL}/api/orders/all`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },

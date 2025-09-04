@@ -5,6 +5,8 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import { Helmet } from "react-helmet-async";
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 function Catalog() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -12,7 +14,7 @@ function Catalog() {
 
   useEffect(() => {
     axios
-      .get("https://socks-ecommerce.onrender.com/api/products")
+      .get(`${API_URL}/api/products`)
       .then((res) => setProducts(res.data))
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
@@ -40,7 +42,7 @@ function Catalog() {
             className="border rounded-xl p-4 shadow hover:shadow-2xl transition-transform transform hover:-translate-y-2 bg-white text-center"
           >
             <LazyLoadImage
-              src={`https://socks-ecommerce.onrender.com${product.image}`}
+              src={`${API_URL}${product.image}`}
               alt={product.name}
               effect="blur"
               className="w-full h-64 object-cover rounded-lg"
